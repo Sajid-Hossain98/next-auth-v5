@@ -1,3 +1,4 @@
+import { LoginButton } from "@/components/ui/auth/login-button";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Poppins } from "next/font/google";
@@ -22,9 +23,11 @@ export default function Home() {
         <p className="text-white text-lg">A simple authentication service</p>
 
         <div>
-          <Button variant="secondary" size="lg">
-            Sign in
-          </Button>
+          <LoginButton>
+            <Button variant="secondary" size="lg">
+              Sign in
+            </Button>
+          </LoginButton>
         </div>
       </div>
     </main>
