@@ -17,8 +17,14 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { FormError } from "../form-error";
 import { FormSuccess } from "../form-success";
+import { register } from "@/actions/register";
+import { useState, useTransition } from "react";
 
 export const RegisterForm = () => {
+  const [error, setError] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string | undefined>("");
+  const [isPending, startTransition] = useTransition();
+
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
@@ -28,6 +34,17 @@ export const RegisterForm = () => {
     },
   });
 
+  const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
+    setError("");
+    setSuccess("");
+
+    startTransition(() => {
+      register(values).then((data) => {
+        setError(data.error), setSuccess(data.success);
+      });
+    });
+  };
+
   return (
     <CardWrapper
       headerLabel="Create an account"
@@ -36,7 +53,11 @@ export const RegisterForm = () => {
       showSocial
     >
       <Form {...form}>
-        <form action="" className="space-y-6">
+        <form
+          action=""
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-6"
+        >
           <div className="space-y-4">
             <FormField
               control={form.control}
@@ -45,7 +66,12 @@ export const RegisterForm = () => {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="John Doe" type="text" />
+                    <Input
+                      {...field}
+                      placeholder="John Doe"
+                      type="text"
+                      disabled={isPending}
+                    />
                   </FormControl>
 
                   <FormMessage />
@@ -64,6 +90,7 @@ export const RegisterForm = () => {
                       {...field}
                       placeholder="your.email@example.com"
                       type="email"
+                      disabled={isPending}
                     />
                   </FormControl>
 
@@ -79,7 +106,12 @@ export const RegisterForm = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="!@#$%^&*" type="password" />
+                    <Input
+                      {...field}
+                      placeholder="!@#$%^&*"
+                      type="password"
+                      disabled={isPending}
+                    />
                   </FormControl>
 
                   <FormMessage />
@@ -88,10 +120,10 @@ export const RegisterForm = () => {
             />
           </div>
 
-          <FormError message="" />
-          <FormSuccess message="" />
+          <FormError message={error} />
+          <FormSuccess message={success} />
 
-          <Button className="w-full" type="submit">
+          <Button className="w-full" type="submit" disabled={isPending}>
             Register
           </Button>
         </form>
