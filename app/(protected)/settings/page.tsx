@@ -1,10 +1,10 @@
 "use client";
 
 import { logout } from "@/actions/logout";
-import { useSession } from "next-auth/react";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 
 const SettingsPage = () => {
-  const session = useSession();
+  const user = useCurrentUser();
 
   const onClick = () => {
     logout();
@@ -12,7 +12,7 @@ const SettingsPage = () => {
 
   return (
     <div>
-      {JSON.stringify(session)}
+      {JSON.stringify(user)}
 
       <button
         type="submit"
