@@ -18,6 +18,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
 const SettingsPage = () => {
   const [error, setError] = useState<string | undefined>();
@@ -57,7 +58,33 @@ const SettingsPage = () => {
         <p className="text-2xl font-semibold text-center">⚙️ Settings</p>
       </CardHeader>
 
-      <CardContent></CardContent>
+      <CardContent>
+        <Form {...form}>
+          <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="space-y-4">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ ...field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="john doe"
+                        disabled={isPending}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <Button type="submit">Save</Button>
+          </form>
+        </Form>
+      </CardContent>
     </Card>
   );
 };
