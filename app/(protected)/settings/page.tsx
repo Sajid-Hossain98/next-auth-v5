@@ -35,6 +35,7 @@ const SettingsPage = () => {
     resolver: zodResolver(SettingsSchema),
     defaultValues: {
       name: user?.name || undefined,
+      email: user?.email || undefined,
     },
   });
 
@@ -77,6 +78,25 @@ const SettingsPage = () => {
                       <Input
                         {...field}
                         placeholder="john doe"
+                        disabled={isPending}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="john.doe@example.com"
+                        type="email"
                         disabled={isPending}
                       />
                     </FormControl>
