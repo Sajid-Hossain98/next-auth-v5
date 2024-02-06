@@ -35,6 +35,7 @@ const SettingsPage = () => {
     resolver: zodResolver(SettingsSchema),
     defaultValues: {
       password: undefined,
+      newPassword: undefined,
       name: user?.name || undefined,
       email: user?.email || undefined,
     },
@@ -111,6 +112,25 @@ const SettingsPage = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Password</FormLabel>
+
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="@#$%^&*"
+                        type="password"
+                        disabled={isPending}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="newPassword"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>New Password</FormLabel>
 
                     <FormControl>
                       <Input
