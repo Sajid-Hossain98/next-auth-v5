@@ -92,6 +92,7 @@ const SettingsPage = () => {
                         disabled={isPending}
                       />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -111,6 +112,7 @@ const SettingsPage = () => {
                         disabled={isPending}
                       />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -130,6 +132,7 @@ const SettingsPage = () => {
                         disabled={isPending}
                       />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -149,6 +152,7 @@ const SettingsPage = () => {
                         disabled={isPending}
                       />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -176,6 +180,7 @@ const SettingsPage = () => {
                         <SelectItem value={UserRole.USER}>User</SelectItem>
                       </SelectContent>
                     </Select>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
